@@ -1,0 +1,41 @@
+;REVERSE A STRING
+INCLUDE "EMU8086.INC"
+.MODEL SMALL
+.STACK 100H
+.DATA
+
+.CODE
+
+
+MAIN PROC
+    
+    MOV AX,@DATA
+    MOV DS,AX
+    XOR CX,CX
+    PRINT 'ENTER A STRING:  ' 
+    MOV AH,1
+    LOOP1:
+    INT 21H
+    CMP AL,0DH
+    JE END_LOOP1
+    
+    PUSH AX
+    INC CX
+    
+    JMP LOOP1
+    
+    END_LOOP1:
+    PRINTN
+    PRINT 'IN REVERSE PATTERN:  '
+    MOV AH,2
+    LOOP2:
+    POP DX
+    INT 21H 
+    LOOP LOOP2
+    
+    MOV AH,4CH
+    INT 21H
+    MAIN ENDP
+END MAIN
+    
+    
